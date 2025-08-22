@@ -1,0 +1,140 @@
+.wishes-container {
+  min-height: 100vh;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #fff5f7, #fff9f0);
+  text-align: center;
+}
+
+.wishes-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #b30059;
+}
+
+.wishes-form {
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.wishes-form input,
+.wishes-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.wishes-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.wishes-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff99cc, #ff3366);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.wishes-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff6699, #cc0052);
+}
+
+.wishes-list {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.wishes-empty {
+  color: #666;
+}
+
+.wish-item {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.wish-item strong {
+  color: #b30059;
+}
+
+.slideshow-button {
+  margin: 20px 0;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #66ccff, #3399ff);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.slideshow-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #3399ff, #0066cc);
+}
+
+.slideshow-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f7, #e6f7ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.slideshow-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  animation: fadeSlide 1s ease;
+}
+
+.slideshow-card h3 {
+  margin-bottom: 15px;
+  color: #b30059;
+}
+
+.slideshow-card p {
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.slideshow-exit {
+  margin-top: 30px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #ff3366;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.slideshow-exit:hover {
+  background: #cc0044;
+}
+
+/* Анимация появления карточки */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

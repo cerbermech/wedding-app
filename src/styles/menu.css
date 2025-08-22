@@ -1,0 +1,50 @@
+.menu-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.menu-content {
+  padding: 40px;
+  
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.menu-title {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #1c1c1e; /* Apple-style тёмный текст */
+  font-weight: 600;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.315);
+  backdrop-filter: blur(4px);
+  font-size: 1.05rem;
+  color: #1c1c1e;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 230, 242, 0.453); /* лёгкий розовый акцент */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}

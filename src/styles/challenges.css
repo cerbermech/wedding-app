@@ -1,0 +1,52 @@
+.challenges-container {
+  text-align: center;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin: 15px 0;
+  color: #ff5c8a;
+}
+
+.challenge-list {
+  list-style: none;
+  padding: 0;
+}
+
+.challenge-list li {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff8f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.challenge-list li.done {
+  background: #eaffea;
+  border: 2px solid #6ed36e;
+}
+
+.challenge-list input[type="file"] {
+  margin-top: 10px;
+}
+
+.proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.proof img {
+  max-width: 150px;
+  margin-top: 8px;
+  border-radius: 10px;
+}

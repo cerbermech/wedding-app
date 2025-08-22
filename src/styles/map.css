@@ -1,0 +1,84 @@
+.map-container {
+  min-height: 100vh;
+  padding: 30px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f7, #e6f7ff);
+}
+
+.tabs {
+  margin-bottom: 15px;
+}
+
+.tabs button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.tabs button.active {
+  background: #ff6f61;
+  color: white;
+}
+
+.taxi a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #ff6f61;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.map-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #b30059;
+}
+
+.map-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.map-frame {
+  margin: 0 auto 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.map-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.map-button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.map-button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.map-button.yandex {
+  background: #ff3366;
+}
+
+.map-button.google {
+  background: #4285f4;
+}

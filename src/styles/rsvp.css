@@ -1,0 +1,60 @@
+.rsvp-container {
+  min-height: 100vh;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  text-align: center;
+}
+
+.rsvp-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #b30059;
+}
+
+.rsvp-form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.rsvp-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: #444;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.rsvp-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.rsvp-button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff99cc, #ff3366);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.rsvp-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff6699, #cc0052);
+}

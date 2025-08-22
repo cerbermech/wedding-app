@@ -1,26 +1,29 @@
 import { useState } from "react";
-import "./../styles/rsvp.css";
-
-// Для конфетти
 import confetti from "canvas-confetti";
+import "./../styles/rsvp.css";
 
 export default function RSVP() {
   const [name, setName] = useState("");
-  const [guests, setGuests] = useState("иду");
-  const [comment, setComment] = useState("");
+  const [choice, setChoice] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [guestCount, setGuestCount] = useState(12); // стартовое число гостей
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChoice = (option) => {
+    setChoice(option);
 
-    console.log({ name, guests, comment });
-
-    if (guests === "иду" || guests === "иду с +1") {
+    if (option === "🥂 Буду!" || option === "👯 Буду с +1") {
       confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
       });
+    }
+
+    // обновляем счётчик
+    if (option === "🥂 Буду!") {
+      setGuestCount((prev) => prev + 1);
+    } else if (option === "👯 Буду с +1") {
+      setGuestCount((prev) => prev + 2);
     }
 
     setSubmitted(true);
@@ -29,47 +32,48 @@ export default function RSVP() {
   if (submitted) {
     return (
       <div className="rsvp-container">
-        <h2>✅ Спасибо, {name}!</h2>
+        <h2>✅ Спасибо, {name || "гость"}!</h2>
         <p>Ваш ответ сохранён.</p>
+        <p className="guest-count">Уже подтвердили участие: {guestCount} гостей 🎉</p>
       </div>
     );
   }
 
   return (
     <div className="rsvp-container">
-      <h2 className="rsvp-title">✅ RSVP — Подтверждение участия</h2>
-      <form className="rsvp-form" onSubmit={handleSubmit}>
-        <label>
-          Ваше имя:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            placeholder="Введите имя"
-          />
-        </label>
+      <h2 className="rsvp-title">✅ Подтверждение участия</h2>
 
-        <label>
-          Ваш ответ:
-          <select value={guests} onChange={(e) => setGuests(e.target.value)}>
-            <option value="иду">🥂 Иду</option>
-            <option value="не смогу">😢 Не смогу</option>
-            <option value="иду с +1">👯 Иду с +1</option>
-          </select>
-        </label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Ваше имя"
+        className="name-input"
+        required
+      />
 
-        <label>
-          Комментарий:
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Например: нужен вегетарианский стол"
-          />
-        </label>
+      <div className="rsvp-options">
+        <div
+          className={`rsvp-card ${choice === "🥂 Буду!" ? "selected" : ""}`}
+          onClick={() => handleChoice("🥂 Буду!")}
+        >
+          🥂 Буду!
+        </div>
+        <div
+          className={`rsvp-card ${choice === "😢 Не смогу" ? "selected" : ""}`}
+          onClick={() => handleChoice("😢 Не смогу")}
+        >
+          😢 Не смогу
+        </div>
+        <div
+          className={`rsvp-card ${choice === "👯 Буду с +1" ? "selected" : ""}`}
+          onClick={() => handleChoice("👯 Буду с +1")}
+        >
+          👯 Буду с +1
+        </div>
+      </div>
 
-        <button type="submit" className="rsvp-button">Отправить</button>
-      </form>
+      <p className="guest-count">Уже подтвердили участие: {guestCount} гостей 🎉</p>
     </div>
   );
 }

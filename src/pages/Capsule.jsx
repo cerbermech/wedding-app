@@ -1,7 +1,7 @@
 import "./../styles/capsule.css";
 
 export default function Capsule() {
-  const openDate = "12 июля 2026";
+  const openDate = "8 июля 2026";
 
   return (
     <div className="capsule-container">

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import "./../styles/map.css";
+import YandexMap from "./YandexMap";
 
 export default function MapPage() {
   const [tab, setTab] = useState("map");
 
-  // Координаты места свадьбы (пример — Москва, Красная площадь)
+  // Координаты места свадьбы
   const coords = [55.751574, 37.573856];
   const placeName = "Банкетный зал «Рустик Бохо»";
   const address = "Москва, Красная площадь, д.1";
@@ -13,6 +13,8 @@ export default function MapPage() {
   return (
     <div className="map-container">
       <h2>📍 Место проведения</h2>
+      <p>{placeName}</p>
+      <p>{address}</p>
 
       <div className="tabs">
         <button
@@ -35,17 +37,7 @@ export default function MapPage() {
         </button>
       </div>
 
-      {tab === "map" && (
-        <YMaps>
-          <Map
-            defaultState={{ center: coords, zoom: 15 }}
-            width="100%"
-            height="300px"
-          >
-            <Placemark geometry={coords} properties={{ balloonContent: placeName }} />
-          </Map>
-        </YMaps>
-      )}
+      {tab === "map" && <YandexMap coords={coords} placeName={placeName} />}
 
       {tab === "taxi" && (
         <div className="taxi">
@@ -54,6 +46,7 @@ export default function MapPage() {
             href={`https://3.redirect.appmetrica.yandex.com/route?end-lat=${coords[0]}&end-lon=${coords[1]}&appmetrica_tracking_id=1178268795219780156`}
             target="_blank"
             rel="noopener noreferrer"
+            className="btn"
           >
             🚖 Вызвать Яндекс.Такси
           </a>

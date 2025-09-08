@@ -1,50 +1,75 @@
-.menu-container {
+.menu-container { 
+  width: 140%;
   position: relative;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   overflow: hidden;
+  padding: 40px 20px;
 }
 
 .menu-content {
-  padding: 40px;
-  
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;             /* ✅ во всю ширину */
+  padding: 20px;
+  border-radius: 0;         /* убрали закругления, чтобы тянулось вширь */
+  background: transparent;  /* убираем общий блок, оставляем только кнопки */
   z-index: 1;
 }
 
 .menu-title {
-  font-size: 2.2rem;
+  font-family: 'Comforter', cursive;
+  font-size: 2.4rem;
   margin-bottom: 30px;
-  color: #1c1c1e; /* Apple-style тёмный текст */
-  font-weight: 600;
+  color: #fff;  /* ✅ теперь видно */
+  font-weight: 400;
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr; /* ✅ один столбец во всю ширину */
+  gap: 16px;
+}
+
+/* на планшетах и выше — по 2 */
+@media (min-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* на больших экранах — по 3 */
+@media (min-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 .menu-item {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 18px;
+  gap: 12px;
+  padding: 18px 20px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.315);
-  backdrop-filter: blur(4px);
-  font-size: 1.05rem;
-  color: #1c1c1e;
+  background: rgba(0, 0, 0, 0.12);   /* ✅ тёмный фон */
+  backdrop-filter: blur(6px);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1b1b1ba4;                   /* ✅ белый текст */
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: all 0.25s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
 }
 
 .menu-item:hover {
-  transform: translateY(-4px) scale(1.02);
-  background: rgba(255, 230, 242, 0.453); /* лёгкий розовый акцент */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  color: #ffd9dfff;     
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(0, 0, 0, 0.36);   /* при ховере чуть плотнее */
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.menu-icon {
+  width: 22px;
+  height: 22px;
 }

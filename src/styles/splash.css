@@ -1,8 +1,19 @@
-.splash-container {
-  height: 100vh;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* убираем скролл по горизонтали */
   width: 100%;
-  background-size: cover;
+}
+
+
+.splash-container {
+  width: 120%;
+  height: 100vh;          /* тянем на весь экран */
+  overflow-x: hidden;
+  background-size: cover; /* чтобы фото заполняло экран */
   background-position: center;
+  background-repeat: no-repeat;
   position: relative;
   font-family: 'Inter', sans-serif;
   color: white;

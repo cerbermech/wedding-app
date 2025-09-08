@@ -11,8 +11,8 @@ export default function PetalsBackground() {
     const petalCount = 20; // немного лепестков, чтобы фон не был перегружен
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = document.documentElement.clientWidth;
+      canvas.height = document.documentElement.clientHeight;
     };
 
     resize();
@@ -81,8 +81,10 @@ export default function PetalsBackground() {
         position: "fixed",
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
+        maxWidth: "100%",
+        maxHeight: "100%",
         zIndex: -1,
       }}
     />

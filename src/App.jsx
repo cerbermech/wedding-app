@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { MusicProvider } from "./MusicContext";
 import Splash from "./pages/Splash";
 import Menu from "./pages/Menu";
 import Program from "./pages/Program";
@@ -13,20 +14,22 @@ import Сhallenges from "./pages/Challenges";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/program" element={<Program />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/rsvp" element={<RSVP />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/wishes" element={<Wishes />} />
-        <Route path="/capsule" element={<Capsule />} />
-        <Route path="/playlist" element={<Playlist />} />
-        <Route path="/challenges" element={<Сhallenges />} />
+    <MusicProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Splash />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/program" element={<Program />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/rsvp" element={<RSVP />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/wishes" element={<Wishes />} />
+          <Route path="/capsule" element={<Capsule />} />
+          <Route path="/playlist" element={<Playlist />} />
+          <Route path="/challenges" element={<Сhallenges />} />
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </MusicProvider>
   );
 }

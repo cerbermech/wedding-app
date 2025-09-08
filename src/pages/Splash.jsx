@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMusic } from "../MusicContext";
 import "./../styles/splash.css";
-import PetalsBackground from "../components/PetalsBackground"; // 🌸 подключаем лепестки
+import PetalsBackground from "../components/PetalsBackground";
+import couplePhoto from "../assets/couple.jpg";
 
 export default function Splash() {
   const navigate = useNavigate();
+  const { startMusic } = useMusic(); // подключаем контекст
 
-  // дата свадьбы
   const weddingDate = new Date(2026, 7, 8, 15, 0, 0);
-
   const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
 
   function getTimeRemaining() {
     const now = new Date();
     const diff = weddingDate - now;
-
-    if (diff <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -31,30 +29,37 @@ export default function Splash() {
     const timer = setInterval(() => {
       setTimeLeft(getTimeRemaining());
     }, 1000);
-
     return () => clearInterval(timer);
   }, []);
 
-  return (
-    <div className="splash-container">
-      <PetalsBackground />
-      <div className="splash-card">
-        <h1 className="splash-title">Максим ❤️ Лена</h1>
-        <p className="splash-date">8 августа 2026</p>
+  const handleStartApp = () => {
+    startMusic(); // включаем музыку глобально
+    navigate("/menu");
+  };
 
-        <div className="countdown">
-          <span>{timeLeft.days}д</span> :
-          <span>{timeLeft.hours}ч</span> :
-          <span>{timeLeft.minutes}м</span> :
-          <span>{timeLeft.seconds}с</span>
+  return (
+    <div
+      className="splash-container"
+      style={{ backgroundImage: `url(${couplePhoto})` }}
+    >
+      <PetalsBackground />
+      <div className="splash-overlay">
+        <div className="splash-top">
+          <h1 className="splash-title">Максим ღ Лена</h1>
+          <p className="splash-date">8 августа 2026</p>
+          <div className="countdown">
+            <span>{timeLeft.days}д</span> :
+            <span>{timeLeft.hours}ч</span> :
+            <span>{timeLeft.minutes}м</span> :
+            <span>{timeLeft.seconds}с</span>
+          </div>
         </div>
 
-        <button
-          className="splash-btn"
-          onClick={() => navigate("/menu")}
-        >
-          Перейти в приглашение
-        </button>
+        <div className="splash-bottom">
+          <button className="splash-btn" onClick={handleStartApp}>
+            Перейти в приложение
+          </button>
+        </div>
       </div>
     </div>
   );

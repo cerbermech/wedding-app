@@ -5,8 +5,14 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Проксируем API-запросы на твой сервер
 [[redirects]]
   from = "/api/*"
   to = "http://46.173.28.77:5000/:splat"
   status = 200
-  force = true
+
+# Все остальные роуты → index.html (для React Router)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

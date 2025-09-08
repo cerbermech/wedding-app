@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import "./../styles/rsvp.css";
 
@@ -6,9 +6,16 @@ export default function RSVP() {
   const [name, setName] = useState("");
   const [choice, setChoice] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [guestCount, setGuestCount] = useState(12); // стартовое число гостей
+  const [guestCount, setGuestCount] = useState(0);
 
-  const handleChoice = (option) => {
+  // Загружаем количество гостей при загрузке
+  useEffect(() => {
+    fetch("http://46.173.28.77:5000/api/guests")
+      .then((res) => res.json())
+      .then((data) => setGuestCount(data.length));
+  }, []);
+
+  const handleChoice = async (option) => {
     setChoice(option);
 
     if (option === "🥂 Буду!" || option === "👯 Буду с +1") {
@@ -19,11 +26,16 @@ export default function RSVP() {
       });
     }
 
-    // обновляем счётчик
-    if (option === "🥂 Буду!") {
-      setGuestCount((prev) => prev + 1);
-    } else if (option === "👯 Буду с +1") {
-      setGuestCount((prev) => prev + 2);
+    // Отправляем на бэк
+    const res = await fetch("http://46.173.28.77:5000/api/guests", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, choice: option }),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      setGuestCount(result.count);
     }
 
     setSubmitted(true);
@@ -34,7 +46,9 @@ export default function RSVP() {
       <div className="rsvp-container">
         <h2>✅ Спасибо, {name || "гость"}!</h2>
         <p>Ваш ответ сохранён.</p>
-        <p className="guest-count">Уже подтвердили участие: {guestCount} гостей 🎉</p>
+        <p className="guest-count">
+          Уже подтвердили участие: {guestCount} гостей 🎉
+        </p>
       </div>
     );
   }
@@ -73,7 +87,9 @@ export default function RSVP() {
         </div>
       </div>
 
-      <p className="guest-count">Уже подтвердили участие: {guestCount} гостей 🎉</p>
+      <p className="guest-count">
+        Уже подтвердили участие: {guestCount} гостей 🎉
+      </p>
     </div>
   );
 }

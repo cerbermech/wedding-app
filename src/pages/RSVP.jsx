@@ -10,7 +10,7 @@ export default function RSVP() {
 
   // Загружаем количество гостей при загрузке
   useEffect(() => {
-    fetch("http://46.173.28.77:5000/api/guests")
+    fetch("/api/guests")
       .then((res) => res.json())
       .then((data) => setGuestCount(data.length));
   }, []);
@@ -27,7 +27,7 @@ export default function RSVP() {
     }
 
     // Отправляем на бэк
-    const res = await fetch("http://46.173.28.77:5000/api/guests", {
+    const res = await fetch("/api/guests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, choice: option }),

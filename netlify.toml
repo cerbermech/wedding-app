@@ -4,3 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://46.173.28.77:5000/:splat"
+  status = 200
+  force = true

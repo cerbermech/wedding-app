@@ -8,7 +8,7 @@ html, body {
 
 
 .splash-container {
-  width: 120%;
+  width: 110%;
   height: 100vh;          /* тянем на весь экран */
   overflow-x: hidden;
   background-size: cover; /* чтобы фото заполняло экран */

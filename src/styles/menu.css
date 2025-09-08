@@ -1,75 +1,52 @@
-.menu-container { 
-  width: 140%;
+.menu-container {
+  width: 130%;
   position: relative;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
   overflow: hidden;
-  padding: 40px 20px;
 }
 
 .menu-content {
-  width: 100%;             /* ✅ во всю ширину */
-  padding: 20px;
-  border-radius: 0;         /* убрали закругления, чтобы тянулось вширь */
-  background: transparent;  /* убираем общий блок, оставляем только кнопки */
+  padding: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   z-index: 1;
+  width: 130%;
 }
 
 .menu-title {
-  font-family: 'Comforter', cursive;
-  font-size: 2.4rem;
+  font-family: 'Comforter', serif;
+  font-size: 2.2rem;
   margin-bottom: 30px;
-  color: #fff;  /* ✅ теперь видно */
-  font-weight: 400;
+  color: #1c1c1ec0; /* Apple-style тёмный текст */
+  font-weight: 600;
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr; /* ✅ один столбец во всю ширину */
-  gap: 16px;
-}
-
-/* на планшетах и выше — по 2 */
-@media (min-width: 768px) {
-  .menu-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* на больших экранах — по 3 */
-@media (min-width: 1200px) {
-  .menu-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
 }
 
 .menu-item {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 18px 20px;
+  padding: 18px;
   border-radius: 18px;
-  background: rgba(0, 0, 0, 0.12);   /* ✅ тёмный фон */
-  backdrop-filter: blur(6px);
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #1b1b1ba4;                   /* ✅ белый текст */
+  background: rgba(255, 255, 255, 0.315);
+  backdrop-filter: blur(4px);
+  font-size: 1.05rem;
+  color: #1c1c1e;
   text-decoration: none;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
 }
 
 .menu-item:hover {
-  color: #ffd9dfff;     
-  transform: translateY(-3px) scale(1.02);
-  background: rgba(0, 0, 0, 0.36);   /* при ховере чуть плотнее */
-  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
-}
-
-.menu-icon {
-  width: 22px;
-  height: 22px;
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 230, 234, 0.45); /* лёгкий розовый акцент */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }

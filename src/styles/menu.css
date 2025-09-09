@@ -1,17 +1,23 @@
 .menu-container {
-  width: 130%;
-  position: relative;
+  width: 100%;               /* убрал 130% */
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;   /* по центру по горизонтали */
+  align-items: flex-start;   /* сверху вниз */
   text-align: center;
-  overflow: hidden;
+  padding: 40px 20px;
+  box-sizing: border-box;
+
+  /* 📸 фон */
+  background-image: url("../assets/couple.jpg"); /* замени на свою картинку */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 .menu-content {
   padding: 40px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   z-index: 1;
   width: 130%;
 }
@@ -26,7 +32,7 @@
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: 1fr; /* всегда одна колонка */
   gap: 20px;
 }
 
@@ -39,7 +45,7 @@
   background: rgba(255, 255, 255, 0.315);
   backdrop-filter: blur(4px);
   font-size: 1.05rem;
-  color: #1c1c1e;
+  color: #161616ff;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: all 0.25s ease;
@@ -49,4 +55,5 @@
   transform: translateY(-4px) scale(1.02);
   background: rgba(255, 230, 234, 0.45); /* лёгкий розовый акцент */
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  color: #1c1c1e;
 }

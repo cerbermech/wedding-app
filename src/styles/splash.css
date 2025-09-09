@@ -1,42 +1,45 @@
-
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* убираем скролл по горизонтали */
+  overflow-x: hidden;
   width: 100%;
+  height: 100%;
 }
 
-
 .splash-container {
-  width: 110%;
-  height: 100vh;          /* тянем на весь экран */
-  overflow-x: hidden;
-  background-size: cover; /* чтобы фото заполняло экран */
+  width: 100%;
+  min-width: 100%;       /* ✅ не уже, чем экран */
+  height: 100svh;        /* ✅ для мобильных с чёлкой/панелью */
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
   font-family: 'Inter', sans-serif;
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .splash-overlay {
-  background: rgba(0,0,0,0.45);
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-   align-items: center;
-text-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box; /* ✅ чтоб padding не ломал ширину */
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .splash-top {
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .splash-title {
   font-family: 'Comforter', serif;
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 600;
   margin-bottom: 12px;
   letter-spacing: 1px;
@@ -44,19 +47,18 @@ text-align: center;
 
 .splash-date {
   font-family: 'Comforter', serif;
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   opacity: 0.9;
   margin-bottom: 30px;
-font-family: 'Comforter', serif;
 }
 
 .countdown {
   font-family: 'Comforter', serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500;
   letter-spacing: 2px;
   background: rgba(255, 255, 255, 0);
-  padding: 12px 28px;
+  padding: 10px 24px;
   border-radius: 18px;
   display: inline-block;
 }
@@ -67,14 +69,14 @@ font-family: 'Comforter', serif;
 }
 
 .splash-bottom {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: center;
 }
 
 .splash-btn {
   padding: 14px 36px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   background: rgba(255, 255, 255, 0.25);
   color: #fff;
@@ -88,4 +90,18 @@ font-family: 'Comforter', serif;
 .splash-btn:hover {
   background: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
+}
+
+/* 📱 Мобильные экраны */
+@media (max-width: 768px) {
+  .splash-title {
+    font-size: 2.4rem;
+  }
+  .splash-date {
+    font-size: 1.6rem;
+  }
+  .countdown {
+    font-size: 1.2rem;
+    padding: 8px 18px;
+  }
 }

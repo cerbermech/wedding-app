@@ -12,7 +12,7 @@ export function MusicProvider({ children }) {
       audioRef.current.volume = 0.1;
       audioRef.current.play().then(() => {
         setIsPlaying(true);
-      }).catch(() => {});
+      }).catch(() => { });
     }
   };
 
@@ -38,17 +38,19 @@ export function MusicProvider({ children }) {
         onClick={toggleMusic}
         style={{
           position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          background: "rgba(0, 0, 0, 0)",
-          color: "blacke",
-          border: "none",
+          bottom: "16px",
+          right: "16px",
+          background: "rgba(255,255,255,0.25)",
+          color: "#fff",
+          border: "1px solid rgba(255,255,255,0.4)",
           borderRadius: "50%",
-          width: "50px",
-          height: "50px",
-          fontSize: "20px",
+          width: "44px",
+          height: "44px",
+          fontSize: "18px",
           cursor: "pointer",
-          zIndex: 9999
+          zIndex: 9999,
+          backdropFilter: "blur(4px)",
+          padding: "1px",
         }}
       >
         {isPlaying ? "⏸" : "▶️"}

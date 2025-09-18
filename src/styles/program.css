@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  max-width: 500px;
+  max-width: 400px;
   width: 100%;
   padding-left: 40px; /* место под линию */
   z-index: 1;

@@ -1,41 +1,80 @@
 .capsule-container {
   min-height: 100vh;
   padding: 40px 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #fff5f7, #e6f7ff);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  position: relative;
+
+  /* 📸 фон */
+  background-image: url("../assets/back.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.capsule-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
 }
 
 .capsule-title {
-  font-size: 2rem;
+  font-family: 'Comforter', cursive;
+  font-size: 3rem;
   margin-bottom: 20px;
-  color: #b30059;
+  color: #fff;
+  font-weight: 400;
+  z-index: 1;
+  animation: fadeIn 1s ease-in-out;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
 .capsule-lock {
   font-size: 5rem;
   margin: 20px 0;
+  z-index: 1;
+  color: #ffe1ec;
+  text-shadow: 0 0 10px rgba(255,192,203,0.6);
   animation: pulse 1.5s infinite;
 }
 
 .capsule-text {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 12px;
+  z-index: 1;
+  animation: slideUp 0.8s ease forwards;
+  opacity: 0;
 }
 
 .capsule-subtext {
   font-size: 1rem;
-  color: #666;
-  max-width: 400px;
+  color: #eee;
+  max-width: 420px;
+  z-index: 1;
+  line-height: 1.4;
+  animation: slideUp 1s ease forwards;
+  opacity: 0;
 }
 
-/* Анимация "пульсирующий замок" */
+/* 🔹 Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.7; }
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.1); opacity: 0.7; }
   100% { transform: scale(1); opacity: 1; }
 }

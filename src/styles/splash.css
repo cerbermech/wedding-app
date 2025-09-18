@@ -90,6 +90,7 @@ html, body {
 .splash-btn:hover {
   background: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
+  border: 1px solid rgba(255,255,255,0.4);
 }
 
 /* 📱 Мобильные экраны */

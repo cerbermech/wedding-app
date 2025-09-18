@@ -57,7 +57,7 @@ export default function Splash() {
 
         <div className="splash-bottom">
           <button className="splash-btn" onClick={handleStartApp}>
-            Перейти в приложение
+            открыть приглашение
           </button>
         </div>
       </div>

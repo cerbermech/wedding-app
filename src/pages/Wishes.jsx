@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Mail } from "lucide-react";
 import "./../styles/wishes.css";
 
 const API_WISHES = "/api/wishes";
@@ -8,7 +9,6 @@ export default function Wishes() {
   const [wish, setWish] = useState("");
   const [wishes, setWishes] = useState([]);
 
-  // 📌 Подтянуть список пожеланий
   useEffect(() => {
     fetch(API_WISHES)
       .then((res) => res.json())
@@ -16,7 +16,6 @@ export default function Wishes() {
       .catch((err) => console.error("Ошибка загрузки пожеланий:", err));
   }, []);
 
-  // 📌 Отправить новое пожелание
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !wish.trim()) return;
@@ -41,7 +40,10 @@ export default function Wishes() {
 
   return (
     <div className="wishes-container">
-      <h2 className="wishes-title">💌 Пожелания</h2>
+      <h2 className="wishes-title">
+        <Mail size={28} strokeWidth={1.8} />
+        <span>Пожелания</span>
+      </h2>
 
       <form className="wishes-form" onSubmit={handleSubmit}>
         <input

@@ -1,69 +1,94 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
+@import "./styles/tokens.css";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  font-synthesis: none;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(141, 170, 145, 0.22), transparent 45%),
+    radial-gradient(circle at 88% 10%, rgba(198, 167, 94, 0.16), transparent 42%),
+    linear-gradient(155deg, #f6f3ec 0%, #eff2eb 48%, #eef1e8 100%);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  min-height: 100vh;
+#root {
   width: 100%;
-  display: block; /* ✅ убираем flex */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-forest-900);
+}
+
+p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
   }
-  a:hover {
-    color: #747bff;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@supports (animation-timeline: view()) {
+  .menu-item,
+  .timeline-item,
+  .gallery-item,
+  .rsvp-card,
+  .guest-list,
+  .map-info-card,
+  .playlist-item,
+  .wish-item,
+  .challenge-list li,
+  .capsule-title,
+  .capsule-text,
+  .capsule-subtext {
+    animation-name: sectionReveal;
+    animation-fill-mode: both;
+    animation-duration: 0.9s;
+    animation-timing-function: var(--ease-smooth);
+    animation-timeline: view();
+    animation-range: entry 12% cover 34%;
   }
 }

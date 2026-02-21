@@ -1,167 +1,140 @@
 .program-container {
   min-height: 100vh;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  padding: clamp(2.4rem, 6vw, 5rem) clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  place-items: start center;
+  gap: var(--space-8);
   text-align: center;
-  position: relative;
-
-  /* 📸 фон */
-  background-image: url("../assets/back.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.program-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 0;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(141, 170, 145, 0.26), transparent 44%),
+    radial-gradient(circle at 90% 84%, rgba(198, 167, 94, 0.2), transparent 42%),
+    linear-gradient(162deg, #f7f3ed 0%, #eef2e9 52%, #eaf0e6 100%);
 }
 
 .program-title {
-  font-family: 'Comforter', cursive;
-  font-size: 3rem;
-  margin-bottom: 30px;
-  color: #fff;
-  font-weight: 400;
-  z-index: 1;
-  animation: fadeIn 1s ease-in-out;
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+  letter-spacing: 0.16em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
-.countdown {
-  margin-bottom: 30px;
-  z-index: 1;
+.program-container .countdown {
+  width: min(760px, 100%);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6) var(--space-8);
 }
 
-.countdown p {
-  margin: 0;
-  font-size: 1rem;
-  color: #eee;
+.program-container .countdown p {
+  color: rgba(31, 61, 43, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
 }
 
-.countdown h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #ffe1ec;
+.program-container .countdown h3 {
+  margin-top: 0.45rem;
+  font-size: clamp(1.4rem, 3.6vw, 2rem);
+  letter-spacing: 0.06em;
+  color: var(--color-forest-900);
 }
 
 .timeline {
+  width: min(760px, 100%);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  max-width: 400px;
-  width: 100%;
-  padding-left: 40px; /* место под линию */
-  z-index: 1;
+  display: grid;
+  gap: var(--space-6);
+  padding: 0.35rem 0 0.35rem 2rem;
 }
 
-/* вертикальная линия */
 .timeline::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 18px;
-  width: 3px;
-  height: 100%;
-  background: rgba(255,255,255,0.3);
-  border-radius: 2px;
+  left: 0.85rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: linear-gradient(var(--color-sage-500), rgba(31, 61, 43, 0.18));
 }
 
 .timeline-item {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  padding: 15px 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  animation: slideUp 0.6s ease forwards;
-  opacity: 0;
-  color: #fff;
+  display: grid;
+  gap: var(--space-2);
+  text-align: left;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  background: var(--color-card-strong);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+  transition: transform 220ms var(--ease-smooth), border-color 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth);
 }
 
-/* кружок-событие */
+.timeline-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(198, 167, 94, 0.48);
+  box-shadow: 0 14px 26px rgba(31, 61, 43, 0.14);
+}
+
 .timeline-item::before {
   content: "";
   position: absolute;
-  top: 20px;
-  left: -30px;
-  width: 16px;
-  height: 16px;
+  left: -1.69rem;
+  top: 1.45rem;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
-  background: #ffe1ec;
-  border: 3px solid rgba(255,255,255,0.7);
-  box-shadow: 0 0 6px rgba(255,192,203,0.6);
+  border: 2px solid var(--color-gold-500);
+  background: var(--color-milk-100);
 }
 
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.3s; }
-.timeline-item:nth-child(3) { animation-delay: 0.5s; }
-
 .timeline-time {
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #ffe1ec;
+  color: var(--color-gold-500);
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 .timeline-icon {
-  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-forest-900);
 }
 
 .timeline-text {
-  text-align: left;
-  font-size: 1rem;
-  line-height: 1.4;
+  color: rgba(31, 61, 43, 0.88);
 }
 
 .timeline-item.past {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .calendar-buttons {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column; /* теперь в колонку */
-  gap: 15px;
-  align-items: center; /* центрируем */
+  width: min(760px, 100%);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-4);
 }
 
 .calendar-btn {
-  width: 100%; /* кнопки широкие, почти во всю ширину */
-  max-width: 320px;
-  padding: 14px 28px;
-  border: none;
-  border-radius: 30px;
-  background: rgba(255,255,255,0.25);
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 500;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border: 1px solid rgba(31, 61, 43, 0.22);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(140deg, rgba(141, 170, 145, 0.22), rgba(198, 167, 94, 0.24));
+  color: var(--color-forest-900);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1rem;
+  transition: transform 220ms var(--ease-smooth), background 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth);
 }
 
 .calendar-btn:hover {
-  background: rgba(255,255,255,0.4);
   transform: translateY(-2px);
-}
-
-/* Анимации */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  background: linear-gradient(140deg, rgba(185, 204, 185, 0.35), rgba(198, 167, 94, 0.28));
+  box-shadow: var(--shadow-card);
 }

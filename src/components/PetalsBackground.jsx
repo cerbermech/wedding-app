@@ -8,7 +8,7 @@ export default function PetalsBackground() {
     const ctx = canvas.getContext("2d");
 
     let petals = [];
-    const petalCount = 20; // немного лепестков, чтобы фон не был перегружен
+    const petalCount = 20;
 
     const resize = () => {
       canvas.width = document.documentElement.clientWidth;
@@ -26,16 +26,16 @@ export default function PetalsBackground() {
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = -10;
-        this.size = 8 + Math.random() * 12; // маленькие лепестки
+        this.size = 8 + Math.random() * 12;
         this.speed = 0.5 + Math.random() * 1;
-        this.opacity = 0.15 + Math.random() * 0.2; // полупрозрачные
+        this.opacity = 0.15 + Math.random() * 0.2;
         this.angle = Math.random() * Math.PI * 2;
-        this.spin = (Math.random() - 0.5) * 0.01; // лёгкое вращение
+        this.spin = (Math.random() - 0.5) * 0.01;
       }
 
       update() {
         this.y += this.speed;
-        this.x += Math.sin(this.angle) * 0.3; // плавное колебание
+        this.x += Math.sin(this.angle) * 0.3;
         this.angle += this.spin;
 
         if (this.y > canvas.height) {
@@ -50,7 +50,7 @@ export default function PetalsBackground() {
         ctx.rotate(this.angle);
         ctx.beginPath();
         ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`; // нежно-розовый
+        ctx.fillStyle = `rgba(141, 170, 145, ${this.opacity})`;
         ctx.fill();
         ctx.restore();
       }
@@ -85,7 +85,7 @@ export default function PetalsBackground() {
         height: "100vh",
         maxWidth: "100%",
         maxHeight: "100%",
-        zIndex: -1,
+        zIndex: 1,
       }}
     />
   );

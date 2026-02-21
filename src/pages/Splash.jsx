@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMusic } from "../MusicContext";
 import "./../styles/splash.css";
 import PetalsBackground from "../components/PetalsBackground";
-import couplePhoto from "../assets/couple.jpg";
+import couplePhoto from "../assets/couple.png";
 
 export default function Splash() {
   const navigate = useNavigate();

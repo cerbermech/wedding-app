@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Flame, User } from "lucide-react";
 import "./../styles/challenges.css";
 
 const API_CHALLENGES = "/api/challenges";
@@ -24,7 +25,7 @@ export default function Challenges() {
 
   const handleProof = async (challengeId, file) => {
     if (!guestName.trim()) {
-      alert("⚠ Сначала введите своё имя!");
+      alert("Сначала введите своё имя!");
       return;
     }
 
@@ -59,7 +60,10 @@ export default function Challenges() {
 
   return (
     <div className="challenges-container">
-      <h2>Свадебные челленджи</h2>
+      <h2>
+        <Flame size={28} strokeWidth={1.8} />
+        <span>Свадебные челленджи</span>
+      </h2>
 
       <div className="guest-input">
         <input
@@ -84,10 +88,7 @@ export default function Challenges() {
               onChange={(e) => handleProof(ch.id, e.target.files[0])}
               disabled={!guestName.trim()}
             />
-            <label
-              htmlFor={`upload-${ch.id}`}
-              className={`upload-label ${!guestName.trim() ? "disabled" : ""}`}
-            >
+            <label htmlFor={`upload-${ch.id}`} className={`upload-label ${!guestName.trim() ? "disabled" : ""}`}>
               Загрузить фото/видео
             </label>
 
@@ -96,16 +97,15 @@ export default function Challenges() {
                 .filter((p) => p.challengeId === ch.id)
                 .map((p) => (
                   <div key={p.id} className="proof">
-                    <p>👤 {p.guest}</p>
+                    <p>
+                      <User size={13} strokeWidth={2} /> {p.guest}
+                    </p>
                     {p.caption && <p>{p.caption}</p>}
 
                     {p.file.match(/\.(jpg|jpeg|png|gif)$/i) ? (
                       <img src={p.file} onClick={() => openModal(p.file)} />
                     ) : (
-                      <video
-                        src={p.file}
-                        onClick={() => openModal(p.file)}
-                      />
+                      <video src={p.file} onClick={() => openModal(p.file)} />
                     )}
                   </div>
                 ))}

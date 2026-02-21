@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Mic2, Music2 } from "lucide-react";
 import "./../styles/playlist.css";
 
 const API_PLAYLIST = "/api/playlist";
@@ -8,7 +9,6 @@ export default function Playlist() {
   const [song, setSong] = useState("");
   const [artist, setArtist] = useState("");
 
-  // 📌 Подтянуть плейлист
   useEffect(() => {
     fetch(API_PLAYLIST)
       .then((res) => res.json())
@@ -16,7 +16,6 @@ export default function Playlist() {
       .catch((err) => console.error("Ошибка загрузки плейлиста:", err));
   }, []);
 
-  // 📌 Добавить песню
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!song.trim() || !artist.trim()) return;
@@ -41,10 +40,11 @@ export default function Playlist() {
 
   return (
     <div className="playlist-container">
-      <h2 className="playlist-title">🎶 Наш свадебный плейлист</h2>
-      <p className="playlist-subtitle">
-        Добавь свою любимую песню — мы включим её на празднике!
-      </p>
+      <h2 className="playlist-title">
+        <Music2 size={28} strokeWidth={1.8} />
+        <span>Наш свадебный плейлист</span>
+      </h2>
+      <p className="playlist-subtitle">Добавь свою любимую песню — мы включим её на празднике!</p>
 
       <form className="playlist-form" onSubmit={handleSubmit}>
         <input
@@ -66,13 +66,14 @@ export default function Playlist() {
 
       <ul className="playlist-list">
         {songs.length === 0 ? (
-          <p className="playlist-empty">
-            Пока никто не добавил песню — начни первым!
-          </p>
+          <p className="playlist-empty">Пока никто не добавил песню — начни первым!</p>
         ) : (
           songs.map((s) => (
             <li key={s.id} className="playlist-item">
-              <span>🎤 {s.artist} — {s.song}</span>
+              <span>
+                <Mic2 size={16} strokeWidth={1.9} />
+                {s.artist} — {s.song}
+              </span>
             </li>
           ))
         )}

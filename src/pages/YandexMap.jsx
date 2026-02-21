@@ -32,12 +32,11 @@ export default function YandexMap({ coords, placeName, visible }) {
   return (
     <div
       ref={containerRef}
+      className="map-frame"
       style={{
         display: visible ? "block" : "none",
         width: "100%",
         height: "300px",
-        borderRadius: "15px",
-        marginTop: "15px",
       }}
     />
   );

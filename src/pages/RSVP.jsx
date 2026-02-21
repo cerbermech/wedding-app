@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
+import { CheckCircle2, ListChecks, UserCheck, UserMinus, Users } from "lucide-react";
 import confetti from "canvas-confetti";
 import "./../styles/rsvp.css";
 
 const API_GUESTS = "/api/guests";
+const CHOICE_YES = "🥂 Буду!";
+const CHOICE_NO = "😢 Не смогу";
+const CHOICE_PLUS_ONE = "👯 Буду с +1";
+
+const stripEmojiPrefix = (value = "") =>
+  value.replace(/^[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\s]+/gu, "");
 
 export default function RSVP() {
   const [name, setName] = useState("");
@@ -11,7 +18,6 @@ export default function RSVP() {
   const [guests, setGuests] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
-  // Загрузка гостей
   const loadGuests = () => {
     fetch(API_GUESTS)
       .then((res) => res.json())
@@ -26,7 +32,7 @@ export default function RSVP() {
   const handleSubmit = async () => {
     if (!name.trim() || !choice) return;
 
-    if (choice === "🥂 Буду!" || choice === "👯 Буду с +1") {
+    if (choice === CHOICE_YES || choice === CHOICE_PLUS_ONE) {
       confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
 
@@ -37,7 +43,7 @@ export default function RSVP() {
         body: JSON.stringify({
           name,
           choice,
-          plusOne: choice === "👯 Буду с +1" ? plusOne || null : null,
+          plusOne: choice === CHOICE_PLUS_ONE ? plusOne || null : null,
         }),
       });
 
@@ -52,14 +58,17 @@ export default function RSVP() {
   };
 
   const totalCount = guests.reduce((acc, g) => {
-    if (g.choice === "🥂 Буду!") return acc + 1;
-    if (g.choice === "👯 Буду с +1") return acc + (g.plusOne ? 2 : 1);
+    if (g.choice === CHOICE_YES) return acc + 1;
+    if (g.choice === CHOICE_PLUS_ONE) return acc + (g.plusOne ? 2 : 1);
     return acc;
   }, 0);
 
   return (
     <div className="rsvp-container">
-      <h2 className="rsvp-title">✅ Подтверждение участия</h2>
+      <h2 className="rsvp-title">
+        <CheckCircle2 size={28} strokeWidth={1.8} />
+        <span>Подтверждение участия</span>
+      </h2>
 
       {!submitted && (
         <>
@@ -72,7 +81,7 @@ export default function RSVP() {
             required
           />
 
-          {choice === "👯 Буду с +1" && (
+          {choice === CHOICE_PLUS_ONE && (
             <input
               type="text"
               value={plusOne}
@@ -83,34 +92,27 @@ export default function RSVP() {
           )}
 
           <div className="rsvp-options">
-            <div
-              className={`rsvp-card ${choice === "🥂 Буду!" ? "selected" : ""}`}
-              onClick={() => setChoice("🥂 Буду!")}
-            >
-              🥂 Буду!
+            <div className={`rsvp-card ${choice === CHOICE_YES ? "selected" : ""}`} onClick={() => setChoice(CHOICE_YES)}>
+              <UserCheck size={18} strokeWidth={1.9} />
+              <span>{stripEmojiPrefix(CHOICE_YES)}</span>
+            </div>
+
+            <div className={`rsvp-card ${choice === CHOICE_NO ? "selected" : ""}`} onClick={() => setChoice(CHOICE_NO)}>
+              <UserMinus size={18} strokeWidth={1.9} />
+              <span>{stripEmojiPrefix(CHOICE_NO)}</span>
             </div>
 
             <div
-              className={`rsvp-card ${choice === "😢 Не смогу" ? "selected" : ""}`}
-              onClick={() => setChoice("😢 Не смогу")}
+              className={`rsvp-card ${choice === CHOICE_PLUS_ONE ? "selected" : ""}`}
+              onClick={() => setChoice(CHOICE_PLUS_ONE)}
             >
-              😢 Не смогу
-            </div>
-
-            <div
-              className={`rsvp-card ${choice === "👯 Буду с +1" ? "selected" : ""}`}
-              onClick={() => setChoice("👯 Буду с +1")}
-            >
-              👯 Буду с +1
+              <Users size={18} strokeWidth={1.9} />
+              <span>{stripEmojiPrefix(CHOICE_PLUS_ONE)}</span>
             </div>
           </div>
 
           {choice && (
-            <button
-              className="submit-btn"
-              onClick={handleSubmit}
-              disabled={!name.trim()}
-            >
+            <button className="submit-btn" onClick={handleSubmit} disabled={!name.trim()}>
               Отправить
             </button>
           )}
@@ -118,8 +120,11 @@ export default function RSVP() {
       )}
 
       <div className="guest-list">
-        <h3>📋 Уже подтвердили участие</h3>
-        <p className="guest-count">Всего гостей: {totalCount} 🎉</p>
+        <h3>
+          <ListChecks size={20} strokeWidth={1.9} />
+          <span>Уже подтвердили участие</span>
+        </h3>
+        <p className="guest-count">Всего гостей: {totalCount}</p>
 
         {guests.length === 0 ? (
           <p>Пока никого</p>
@@ -127,7 +132,7 @@ export default function RSVP() {
           <ul>
             {guests.map((g, i) => (
               <li key={i}>
-                <strong>{g.name}</strong> — {g.choice}
+                <strong>{g.name}</strong> — {stripEmojiPrefix(g.choice)}
                 {g.plusOne && <span> (с {g.plusOne})</span>}
               </li>
             ))}

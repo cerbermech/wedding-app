@@ -1,121 +1,89 @@
 .challenges-container {
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: clamp(2.4rem, 6vw, 5rem) clamp(1rem, 4vw, 2.4rem) var(--space-16);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   text-align: center;
-  position: relative;
-
-  /* 📸 фон */
-  background-image: url("../assets/back.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background:
+    radial-gradient(circle at 12% 11%, rgba(141, 170, 145, 0.26), transparent 44%),
+    radial-gradient(circle at 88% 84%, rgba(198, 167, 94, 0.2), transparent 40%),
+    linear-gradient(160deg, #f7f4ed, #edf2ea 55%, #e8efe5);
 }
 
-.challenges-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: 0;
+.challenges-container h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0.16em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Заголовки и описание */
-.challenges-container h2,
-.challenges-container p,
-.challenges-container h3 {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-}
-
-/* Поле ввода имени */
 .guest-input {
-  margin: 20px 0 30px;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 400px;
+  width: min(620px, 100%);
+  margin: var(--space-8) 0 var(--space-6);
 }
 
 .guest-input input {
-  width: 90%;
-  padding: 14px 18px;
-  border-radius: 14px;
-  border: none;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(31, 61, 43, 0.2);
+  background: rgba(244, 241, 234, 0.9);
+  color: var(--color-forest-900);
+  padding: 0.95rem 1rem;
+  box-shadow: var(--shadow-card);
 }
 
 .guest-input input::placeholder {
-  color: #ddd;
+  color: rgba(31, 61, 43, 0.55);
 }
 
 .guest-input input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  border-color: rgba(198, 167, 94, 0.58);
+  box-shadow: 0 0 0 3px rgba(198, 167, 94, 0.14);
 }
 
-/* Список челленджей */
 .challenge-list {
+  width: min(980px, 100%);
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin-top: 20px;
-  z-index: 1;
-  width: 100%;
-  max-width: 900px; /* 👈 шире, чтобы сетка смотрелась красиво */
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+  display: grid;
+  gap: var(--space-6);
 }
 
-/* Челлендж-карточка */
 .challenge-list li {
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  font-size: 1rem;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 15px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(31, 61, 43, 0.15);
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+  text-align: left;
+  color: var(--color-forest-900);
 }
 
-/* Скрываем стандартное поле загрузки */
 .challenge-list input[type="file"] {
   display: none;
 }
 
-/* Кнопка загрузки */
 .upload-label {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 30px;
-  background: rgba(255,255,255,0.25);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-  text-align: center;
+  justify-self: start;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(31, 61, 43, 0.24);
+  background: linear-gradient(130deg, rgba(198, 167, 94, 0.25), rgba(141, 170, 145, 0.31));
+  color: var(--color-forest-900);
+  font-weight: 600;
+  padding: 0.74rem 1.1rem;
+  transition: transform 220ms var(--ease-smooth), background 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth);
 }
 
 .upload-label:hover {
-  background: rgba(255,255,255,0.4);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  background: linear-gradient(130deg, rgba(198, 167, 94, 0.34), rgba(185, 204, 185, 0.44));
 }
 
 .upload-label.disabled {
@@ -123,65 +91,51 @@
   cursor: not-allowed;
 }
 
-/* Галерея внутри челленджа */
 .proofs {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 15px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--space-3);
 }
 
-/* Каждая карточка фото/видео */
 .proof {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  transition: transform 0.2s ease;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(31, 61, 43, 0.14);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 0.55rem;
 }
 
-.proof:hover {
-  transform: translateY(-2px);
-}
-
-/* Фото и видео */
 .proof img,
 .proof video {
   width: 100%;
-  max-height: 140px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  margin-bottom: 6px;
 }
 
-/* Имя и подпись */
 .proof p {
-  margin: 2px 0;
-  font-size: 0.75rem;
-  color: #eee;
-  text-align: center;
-  line-height: 1.2;
+  margin: 0.35rem 0;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
 }
 
-/* Модалка */
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  background: rgba(16, 30, 23, 0.84);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  z-index: 35;
+  padding: var(--space-6);
 }
 
 .modal-content img,
 .modal-content video {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
 }

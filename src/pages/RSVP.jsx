@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import "./../styles/rsvp.css";
 
+const API_GUESTS = "/api/guests";
+
 export default function RSVP() {
   const [name, setName] = useState("");
   const [choice, setChoice] = useState(null);
-  const [plusOne, setPlusOne] = useState(""); // имя +1
+  const [plusOne, setPlusOne] = useState("");
   const [guests, setGuests] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
-  const API_URL = "http://46.173.28.77:5000/api/guests";
-
-  // Загружаем список гостей
+  // Загрузка гостей
   const loadGuests = () => {
-    fetch(API_URL)
+    fetch(API_GUESTS)
       .then((res) => res.json())
       .then((data) => setGuests(data))
       .catch((err) => console.error("Ошибка загрузки гостей:", err));
@@ -24,31 +24,33 @@ export default function RSVP() {
   }, []);
 
   const handleSubmit = async () => {
-    if (!name) return; // защита
+    if (!name.trim() || !choice) return;
 
     if (choice === "🥂 Буду!" || choice === "👯 Буду с +1") {
       confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
 
-    // Отправляем на бэк
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        choice,
-        plusOne: choice === "👯 Буду с +1" ? plusOne || null : null,
-      }),
-    });
+    try {
+      const res = await fetch(API_GUESTS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          choice,
+          plusOne: choice === "👯 Буду с +1" ? plusOne || null : null,
+        }),
+      });
 
-    const result = await res.json();
-    if (result.success) {
-      loadGuests(); // обновим список
-      setSubmitted(true);
+      const result = await res.json();
+      if (result.success) {
+        loadGuests();
+        setSubmitted(true);
+      }
+    } catch (err) {
+      console.error("Ошибка отправки RSVP:", err);
     }
   };
 
-  // 📊 Подсчёт гостей с учетом +1
   const totalCount = guests.reduce((acc, g) => {
     if (g.choice === "🥂 Буду!") return acc + 1;
     if (g.choice === "👯 Буду с +1") return acc + (g.plusOne ? 2 : 1);
@@ -87,12 +89,14 @@ export default function RSVP() {
             >
               🥂 Буду!
             </div>
+
             <div
               className={`rsvp-card ${choice === "😢 Не смогу" ? "selected" : ""}`}
               onClick={() => setChoice("😢 Не смогу")}
             >
               😢 Не смогу
             </div>
+
             <div
               className={`rsvp-card ${choice === "👯 Буду с +1" ? "selected" : ""}`}
               onClick={() => setChoice("👯 Буду с +1")}
@@ -105,7 +109,7 @@ export default function RSVP() {
             <button
               className="submit-btn"
               onClick={handleSubmit}
-              disabled={!name.trim()} // 🚫 блокируем без имени
+              disabled={!name.trim()}
             >
               Отправить
             </button>
@@ -113,10 +117,10 @@ export default function RSVP() {
         </>
       )}
 
-      {/* список гостей */}
       <div className="guest-list">
         <h3>📋 Уже подтвердили участие</h3>
         <p className="guest-count">Всего гостей: {totalCount} 🎉</p>
+
         {guests.length === 0 ? (
           <p>Пока никого</p>
         ) : (

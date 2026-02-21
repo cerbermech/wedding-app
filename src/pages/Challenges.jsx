@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/challenges.css";
 
-const API_CHALLENGES = "http://46.173.28.77:5000/api/challenges";
-const API_PROOFS = "http://46.173.28.77:5000/api/proofs";
+const API_CHALLENGES = "/api/challenges";
+const API_PROOFS = "/api/proofs";
 
 export default function Challenges() {
   const [challenges, setChallenges] = useState([]);
@@ -10,7 +10,6 @@ export default function Challenges() {
   const [guestName, setGuestName] = useState("");
   const [modalContent, setModalContent] = useState(null);
 
-  // 📌 Подтянуть список
   useEffect(() => {
     fetch(API_CHALLENGES)
       .then((res) => res.json())
@@ -23,7 +22,6 @@ export default function Challenges() {
       .catch((err) => console.error("Ошибка загрузки доказательств:", err));
   }, []);
 
-  // 📌 Отправить доказательство
   const handleProof = async (challengeId, file) => {
     if (!guestName.trim()) {
       alert("⚠ Сначала введите своё имя!");
@@ -51,23 +49,17 @@ export default function Challenges() {
     }
   };
 
-  // 📌 Открыть модалку
   const openModal = (file) => {
     if (file.match(/\.(jpg|jpeg|png|gif)$/i)) {
-      setModalContent(
-        <img src={`http://46.173.28.77:5000${file}`} alt="proof" />
-      );
+      setModalContent(<img src={file} alt="proof" />);
     } else {
-      setModalContent(
-        <video src={`http://46.173.28.77:5000${file}`} controls autoPlay />
-      );
+      setModalContent(<video src={file} controls autoPlay />);
     }
   };
 
   return (
     <div className="challenges-container">
       <h2>Свадебные челленджи</h2>
-      <p>Выполняй задания → получай баллы → обменивай на призы!</p>
 
       <div className="guest-input">
         <input
@@ -90,17 +82,11 @@ export default function Challenges() {
               type="file"
               accept="image/*,video/*"
               onChange={(e) => handleProof(ch.id, e.target.files[0])}
-              disabled={!guestName.trim()} // нельзя загрузить без имени
+              disabled={!guestName.trim()}
             />
             <label
               htmlFor={`upload-${ch.id}`}
               className={`upload-label ${!guestName.trim() ? "disabled" : ""}`}
-              onClick={(e) => {
-                if (!guestName.trim()) {
-                  e.preventDefault();
-                  alert("⚠ Сначала введите своё имя!");
-                }
-              }}
             >
               Загрузить фото/видео
             </label>
@@ -114,20 +100,10 @@ export default function Challenges() {
                     {p.caption && <p>{p.caption}</p>}
 
                     {p.file.match(/\.(jpg|jpeg|png|gif)$/i) ? (
-                      <img
-                        src={`http://46.173.28.77:5000${p.file}`}
-                        alt="proof"
-                        onClick={() => openModal(p.file)}
-                      />
+                      <img src={p.file} onClick={() => openModal(p.file)} />
                     ) : (
                       <video
-                        src={`http://46.173.28.77:5000${p.file}`}
-                        style={{
-                          maxWidth: "200px",
-                          borderRadius: "12px",
-                          marginTop: "8px",
-                          cursor: "pointer",
-                        }}
+                        src={p.file}
                         onClick={() => openModal(p.file)}
                       />
                     )}
@@ -138,7 +114,6 @@ export default function Challenges() {
         ))}
       </ul>
 
-      {/* 🔹 модалка */}
       {modalContent && (
         <div className="modal" onClick={() => setModalContent(null)}>
           <div className="modal-content">{modalContent}</div>

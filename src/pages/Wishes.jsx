@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import "./../styles/wishes.css";
 
-const API_URL = "http://46.173.28.77:5000/api/wishes";
+const API_WISHES = "/api/wishes";
 
 export default function Wishes() {
   const [name, setName] = useState("");
   const [wish, setWish] = useState("");
   const [wishes, setWishes] = useState([]);
 
-  // 📌 Подтянуть список пожеланий с сервера
+  // 📌 Подтянуть список пожеланий
   useEffect(() => {
-    fetch(API_URL)
+    fetch(API_WISHES)
       .then((res) => res.json())
       .then((data) => setWishes(data))
       .catch((err) => console.error("Ошибка загрузки пожеланий:", err));
@@ -21,18 +21,16 @@ export default function Wishes() {
     e.preventDefault();
     if (!name.trim() || !wish.trim()) return;
 
-    const newWish = { name, text: wish };
-
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(API_WISHES, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newWish),
+        body: JSON.stringify({ name, text: wish }),
       });
 
       const data = await res.json();
       if (data.success) {
-        setWishes((prev) => [data.wish, ...prev]); // добавляем сверху
+        setWishes((prev) => [data.wish, ...prev]);
         setName("");
         setWish("");
       }

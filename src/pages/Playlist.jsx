@@ -1,38 +1,36 @@
 import { useState, useEffect } from "react";
 import "./../styles/playlist.css";
 
-const API_URL = "http://46.173.28.77:5000/api/playlist";
+const API_PLAYLIST = "/api/playlist";
 
 export default function Playlist() {
   const [songs, setSongs] = useState([]);
   const [song, setSong] = useState("");
   const [artist, setArtist] = useState("");
 
-  // 📌 Подтянуть плейлист с сервера
+  // 📌 Подтянуть плейлист
   useEffect(() => {
-    fetch(API_URL)
+    fetch(API_PLAYLIST)
       .then((res) => res.json())
       .then((data) => setSongs(data))
       .catch((err) => console.error("Ошибка загрузки плейлиста:", err));
   }, []);
 
-  // 📌 Отправить новую песню
+  // 📌 Добавить песню
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!song.trim() || !artist.trim()) return;
 
-    const newSong = { song, artist };
-
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(API_PLAYLIST, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newSong),
+        body: JSON.stringify({ song, artist }),
       });
 
       const data = await res.json();
       if (data.success) {
-        setSongs((prev) => [...prev, data.song]); // добавляем в конец
+        setSongs((prev) => [...prev, data.song]);
         setSong("");
         setArtist("");
       }
@@ -68,7 +66,9 @@ export default function Playlist() {
 
       <ul className="playlist-list">
         {songs.length === 0 ? (
-          <p className="playlist-empty">Пока никто не добавил песню — начни первым!</p>
+          <p className="playlist-empty">
+            Пока никто не добавил песню — начни первым!
+          </p>
         ) : (
           songs.map((s) => (
             <li key={s.id} className="playlist-item">

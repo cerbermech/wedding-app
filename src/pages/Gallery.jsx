@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import "./../styles/gallery.css";
 
-const API_URL = "http://46.173.28.77:5000";
+const API_GALLERY = "/api/gallery";
 
 export default function Gallery() {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Загружаем фото из бэка при монтировании
+  // Загружаем фото
   useEffect(() => {
-    fetch(`${API_URL}/api/gallery`)
+    fetch(API_GALLERY)
       .then((res) => res.json())
       .then((data) => setImages(data))
       .catch((err) => console.error("Ошибка загрузки фото:", err));
@@ -24,7 +24,7 @@ export default function Gallery() {
       formData.append("photo", file);
 
       try {
-        const res = await fetch(`${API_URL}/api/gallery`, {
+        const res = await fetch(API_GALLERY, {
           method: "POST",
           body: formData,
         });
@@ -42,7 +42,11 @@ export default function Gallery() {
   return (
     <div className="gallery-container">
       <h2 className="gallery-title">📸 Фотоальбом</h2>
-      <p className="gallery-empty">Загружайте сюда все, что связанно с одним из нас. Потом вместе посмотрим и повеселимся)</p>
+
+      <p className="gallery-empty">
+        Загружайте сюда всё, что связано с одним из нас. Потом вместе посмотрим и повеселимся 🙂
+      </p>
+
       <label className="upload-label">
         Загрузить фото
         <input
@@ -62,9 +66,9 @@ export default function Gallery() {
             <div
               key={i}
               className="gallery-item"
-              onClick={() => setSelectedImage(`${API_URL}${img.url}`)}
+              onClick={() => setSelectedImage(img.url)}
             >
-              <img src={`${API_URL}${img.url}`} alt={`Фото ${i + 1}`} />
+              <img src={img.url} alt={`Фото ${i + 1}`} />
             </div>
           ))}
         </div>
@@ -73,7 +77,11 @@ export default function Gallery() {
       {/* Лайтбокс */}
       {selectedImage && (
         <div className="lightbox" onClick={() => setSelectedImage(null)}>
-          <img src={selectedImage} alt="Просмотр фото" className="lightbox-img" />
+          <img
+            src={selectedImage}
+            alt="Просмотр фото"
+            className="lightbox-img"
+          />
           <button
             className="lightbox-close"
             onClick={() => setSelectedImage(null)}

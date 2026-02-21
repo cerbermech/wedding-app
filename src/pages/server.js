@@ -220,5 +220,5 @@ app.post("/api/proofs", upload.single("proof"), (req, res) => {
 });
 
 // ====== СТАРТ СЕРВЕРА ======
-const PORT = 5000;
+const PORT = 5003;
 app.listen(PORT, () => console.log(`✅ Сервер запущен на http://localhost:${PORT}`));

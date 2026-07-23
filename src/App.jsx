@@ -9,8 +9,17 @@ import Gallery from "./pages/Gallery";
 import Wishes from "./pages/Wishes";
 import Capsule from "./pages/Capsule";
 import Playlist from "./pages/Playlist";
-import Сhallenges from "./pages/Challenges";
+import Challenges from "./pages/Challenges";
+import DressCode from "./pages/DressCode";
+import GuestsInfo from "./pages/GuestsInfo";
+import BackToMenu from "./components/BackToMenu";
 
+const withBackToMenu = (page) => (
+  <>
+    <BackToMenu />
+    {page}
+  </>
+);
 
 export default function App() {
   return (
@@ -19,14 +28,16 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Splash />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/program" element={<Program />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/rsvp" element={<RSVP />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/wishes" element={<Wishes />} />
-          <Route path="/capsule" element={<Capsule />} />
-          <Route path="/playlist" element={<Playlist />} />
-          <Route path="/challenges" element={<Сhallenges />} />
+          <Route path="/program" element={withBackToMenu(<Program />)} />
+          <Route path="/map" element={withBackToMenu(<MapPage />)} />
+          <Route path="/dresscode" element={withBackToMenu(<DressCode />)} />
+          <Route path="/guests" element={withBackToMenu(<GuestsInfo />)} />
+          <Route path="/rsvp" element={withBackToMenu(<RSVP />)} />
+          <Route path="/gallery" element={withBackToMenu(<Gallery />)} />
+          <Route path="/wishes" element={withBackToMenu(<Wishes />)} />
+          <Route path="/capsule" element={withBackToMenu(<Capsule />)} />
+          <Route path="/playlist" element={withBackToMenu(<Playlist />)} />
+          <Route path="/challenges" element={withBackToMenu(<Challenges />)} />
 
         </Routes>
       </BrowserRouter>

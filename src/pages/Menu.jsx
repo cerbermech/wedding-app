@@ -8,6 +8,8 @@ import {
   Gift,
   Music2,
   Flame,
+  Shirt,
+  UsersRound,
 } from "lucide-react";
 import "./../styles/menu.css";
 import PetalsBackground from "../components/PetalsBackground";
@@ -15,6 +17,8 @@ import PetalsBackground from "../components/PetalsBackground";
 const menuItems = [
   { to: "/program", label: "Программа", icon: CalendarDays },
   { to: "/map", label: "Место", icon: MapPin },
+  { to: "/dresscode", label: "Дресс-код", icon: Shirt },
+  { to: "/guests", label: "Для гостей", icon: UsersRound },
   { to: "/rsvp", label: "Буду/Не буду", icon: CheckCircle2 },
   { to: "/gallery", label: "Фотоальбом", icon: Images },
   { to: "/wishes", label: "Пожелания", icon: Mail },

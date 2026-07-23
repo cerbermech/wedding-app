@@ -15,11 +15,27 @@ const WISHES_FILE = "./wishes.json";
 const PLAYLIST_FILE = "./playlist.json";
 const CHALLENGES_FILE = "./challenges.json";
 const PROOFS_FILE = "./proofs.json";
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 
 // создаём папку uploads, если нет
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR);
 }
+
+const requireAdmin = (req, res, next) => {
+  if (!ADMIN_TOKEN) {
+    return res.status(503).json({ error: "Удаление фото не настроено на сервере" });
+  }
+
+  const token = req.get("x-admin-token");
+  if (token !== ADMIN_TOKEN) {
+    return res.status(403).json({ error: "Нет доступа" });
+  }
+
+  next();
+};
+
+const getStoredFilename = (item = {}) => item.filename || path.basename(item.url || "");
 
 // ====== ГОСТИ ======
 const readGuests = () => {
@@ -99,6 +115,32 @@ app.post("/api/gallery", upload.single("photo"), (req, res) => {
   saveGallery(gallery);
 
   res.json({ success: true, photo: newPhoto });
+});
+
+// 📌 Удалить фото. Доступно только владельцу по ADMIN_TOKEN.
+app.delete("/api/gallery/:filename", requireAdmin, (req, res) => {
+  const filename = path.basename(req.params.filename || "");
+
+  if (!filename || filename !== req.params.filename) {
+    return res.status(400).json({ error: "Некорректное имя файла" });
+  }
+
+  const gallery = readGallery();
+  const photoIndex = gallery.findIndex((item) => getStoredFilename(item) === filename);
+
+  if (photoIndex === -1) {
+    return res.status(404).json({ error: "Фото не найдено" });
+  }
+
+  const [deletedPhoto] = gallery.splice(photoIndex, 1);
+  saveGallery(gallery);
+
+  const filePath = path.join(UPLOADS_DIR, filename);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+
+  res.json({ success: true, photo: deletedPhoto });
 });
 
 // 📌 раздаём загруженные фото

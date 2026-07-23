@@ -8,7 +8,7 @@
 # Проксируем API-запросы на твой сервер
 [[redirects]]
   from = "/api/*"
-  to = "http://46.173.28.77:5000/:splat"
+  to = "http://185.23.34.152:5003/api/:splat"
   status = 200
 
 # Все остальные роуты → index.html (для React Router)

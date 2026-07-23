@@ -1,15 +1,43 @@
-import { useEffect, useState } from "react";
-import { CalendarDays, Gem, GlassWater, PartyPopper, Smartphone } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  CakeSlice,
+  CalendarDays,
+  Camera,
+  Car,
+  Clock,
+  Coffee,
+  Gem,
+  GlassWater,
+  Music,
+  PartyPopper,
+  Smartphone,
+  Sparkles,
+  Utensils,
+} from "lucide-react";
 import "./../styles/program.css";
 
 export default function Program() {
-  const weddingDate = new Date(2026, 7, 8, 15, 0, 0);
+  const weddingDate = useMemo(() => new Date(2026, 7, 8, 8, 0, 0), []);
   const [timeLeft, setTimeLeft] = useState("");
 
   const timeline = [
-    { time: "15:00", icon: Gem, text: "ЗАГС — официальная церемония" },
-    { time: "17:00", icon: GlassWater, text: "Банкет — начало праздника" },
-    { time: "Дальше больше", icon: PartyPopper, text: "Еще много времени, программа будет уточняться" },
+
+    {
+      time: "15:00-15:30",
+      icon: Gem,
+      text: "Официальная регистрация в ЗАГСе, Жемчужный зал, Отдел регистрации брака города Екатеринбурга",
+    },
+    { time: "15:35-16:30", icon: Car, text: "Дорога до площадки для гостей после ЗАГСа" },
+    { time: "16:00", icon: GlassWater, text: "Можно приехать сразу на площадку: Серебряный Родник" },
+    { time: "16:30-17:00", icon: GlassWater, text: "Фуршет и заселение гостей" },
+    { time: "17:00", icon: Gem, text: "Выездная регистрация для всех гостей" },
+    { time: "17:40", icon: PartyPopper, text: "Начало банкета" },
+    { time: "19:00-19:10", icon: Utensils, text: "Горячие закуски" },
+    { time: "20:00-20:10", icon: Utensils, text: "Горячее" },
+    { time: "21:00", icon: CakeSlice, text: "Вынос торта" },
+    { time: "21:30-22:00", icon: Clock, text: "Завершение программы" },
+    { time: "22:00-23:00", icon: Music, text: "Танцы" },
+    { time: "23:15", icon: PartyPopper, text: "Завершение банкета" },
   ];
 
   useEffect(() => {
@@ -34,20 +62,20 @@ export default function Program() {
 
   const addToGoogleCalendar = () => {
     const title = encodeURIComponent("Свадьба Макса и Лены");
-    const details = encodeURIComponent("Наш праздник!");
-    const location = encodeURIComponent("Екатеринбург");
-    const start = "20260808T100000Z";
-    const end = "20260808T160000Z";
+    const details = encodeURIComponent("Свадебная программа в Серебряном Роднике");
+    const location = encodeURIComponent("Екатеринбург, Серебряный Родник");
+    const start = "20260808T030000Z";
+    const end = "20260808T181500Z";
     const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${start}/${end}`;
     window.open(googleUrl, "_blank");
   };
 
   const addToICS = () => {
     const title = "Свадьба Макса и Лены";
-    const description = "Наш праздник!";
-    const location = "Екатеринбург";
-    const start = "20260808T100000Z";
-    const end = "20260808T160000Z";
+    const description = "Свадебная программа в Серебряном Роднике";
+    const location = "Екатеринбург, Серебряный Родник";
+    const start = "20260808T030000Z";
+    const end = "20260808T181500Z";
 
     const icsContent = `
 BEGIN:VCALENDAR
@@ -86,11 +114,28 @@ END:VCALENDAR
         <h3>{timeLeft}</h3>
       </div>
 
+      <section className="arrival-note" aria-label="Как приехать на мероприятие">
+        <div className="arrival-note-title">
+          <Sparkles size={20} strokeWidth={1.8} />
+          <h3>Как приехать</h3>
+        </div>
+        <p>
+          У гостей есть два удобных варианта: приехать на официальную регистрацию в ЗАГС к 15:00 или сразу на площадку
+          к 16:00.
+        </p>
+        <p>
+          Даже если вы поедете сразу в Серебряный Родник, вы ничего не пропустите: в 17:00 там пройдет выездная
+          регистрация для всех гостей.
+        </p>
+      </section>
+
       <div className="timeline">
         {timeline.map((item, index) => {
           let statusClass = "";
-          if (item.time.includes(":")) {
-            const [h, m] = item.time.split(":").map(Number);
+          const startTime = item.time.match(/^\d{1,2}:\d{2}/)?.[0];
+
+          if (startTime) {
+            const [h, m] = startTime.split(":").map(Number);
             const eventDate = new Date(weddingDate);
             eventDate.setHours(h, m);
             statusClass = eventDate < new Date() ? "past" : "future";
@@ -98,7 +143,7 @@ END:VCALENDAR
 
           const Icon = item.icon;
           return (
-            <div key={index} className={`timeline-item ${statusClass}`}>
+            <div key={`${item.time}-${item.text}`} className={`timeline-item ${statusClass}`}>
               <div className="timeline-time">{item.time}</div>
               <div className="timeline-icon">
                 <Icon size={18} strokeWidth={1.8} />
@@ -116,7 +161,7 @@ END:VCALENDAR
         </button>
         <button onClick={addToICS} className="calendar-btn">
           <Smartphone size={16} strokeWidth={1.9} />
-          <span>Добавить в Календарь телефона</span>
+          <span>Добавить в календарь телефона</span>
         </button>
       </div>
     </div>

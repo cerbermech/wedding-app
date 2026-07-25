@@ -130,7 +130,7 @@ END:VCALENDAR
       </section>
 
       <div className="timeline">
-        {timeline.map((item, index) => {
+        {timeline.map((item) => {
           let statusClass = "";
           const startTime = item.time.match(/^\d{1,2}:\d{2}/)?.[0];
 

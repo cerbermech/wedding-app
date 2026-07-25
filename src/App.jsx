@@ -12,6 +12,8 @@ import Playlist from "./pages/Playlist";
 import Challenges from "./pages/Challenges";
 import DressCode from "./pages/DressCode";
 import GuestsInfo from "./pages/GuestsInfo";
+import Seating from "./pages/Seating";
+import SeatingAdmin from "./pages/SeatingAdmin";
 import BackToMenu from "./components/BackToMenu";
 
 const withBackToMenu = (page) => (
@@ -38,6 +40,8 @@ export default function App() {
           <Route path="/capsule" element={withBackToMenu(<Capsule />)} />
           <Route path="/playlist" element={withBackToMenu(<Playlist />)} />
           <Route path="/challenges" element={withBackToMenu(<Challenges />)} />
+          <Route path="/seating" element={withBackToMenu(<Seating />)} />
+          <Route path="/seating-admin" element={<SeatingAdmin />} />
 
         </Routes>
       </BrowserRouter>

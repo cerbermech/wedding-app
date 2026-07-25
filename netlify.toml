@@ -11,6 +11,11 @@
   to = "http://185.23.34.152:5003/api/:splat"
   status = 200
 
+[[redirects]]
+  from = "/uploads/*"
+  to = "http://185.23.34.152:5003/uploads/:splat"
+  status = 200
+
 # Все остальные роуты → index.html (для React Router)
 [[redirects]]
   from = "/*"

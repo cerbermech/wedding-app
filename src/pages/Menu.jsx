@@ -10,11 +10,13 @@ import {
   Flame,
   Shirt,
   UsersRound,
+  Armchair,
 } from "lucide-react";
 import "./../styles/menu.css";
 import PetalsBackground from "../components/PetalsBackground";
 
 const menuItems = [
+  { to: "/seating", label: "Рассадка", icon: Armchair },
   { to: "/program", label: "Программа", icon: CalendarDays },
   { to: "/map", label: "Место", icon: MapPin },
   { to: "/dresscode", label: "Дресс-код", icon: Shirt },

@@ -8,13 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const DATA_FILE = "./guests.json";
-const GALLERY_FILE = "./gallery.json";
-const UPLOADS_DIR = "./uploads";
-const WISHES_FILE = "./wishes.json";
-const PLAYLIST_FILE = "./playlist.json";
-const CHALLENGES_FILE = "./challenges.json";
-const PROOFS_FILE = "./proofs.json";
+const DATA_FILE = path.join(__dirname, "guests.json");
+const GALLERY_FILE = path.join(__dirname, "gallery.json");
+const UPLOADS_DIR = path.join(__dirname, "uploads");
+const WISHES_FILE = path.join(__dirname, "wishes.json");
+const PLAYLIST_FILE = path.join(__dirname, "playlist.json");
+const CHALLENGES_FILE = path.join(__dirname, "challenges.json");
+const PROOFS_FILE = path.join(__dirname, "proofs.json");
+const SEATING_FILE = path.join(__dirname, "seating.json");
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 
 // создаём папку uploads, если нет
@@ -259,6 +260,51 @@ app.post("/api/proofs", upload.single("proof"), (req, res) => {
   saveProofs(proofs);
 
   res.json({ success: true, proof: newProof });
+});
+
+// ====== РАССАДКА ======
+const readSeating = () => {
+  if (!fs.existsSync(SEATING_FILE)) return { draft: null, published: null };
+  return JSON.parse(fs.readFileSync(SEATING_FILE, "utf8"));
+};
+
+const saveSeating = (seating) => {
+  fs.writeFileSync(SEATING_FILE, JSON.stringify(seating, null, 2));
+};
+
+const isValidSeating = (value) =>
+  value &&
+  typeof value === "object" &&
+  Array.isArray(value.guests) &&
+  Array.isArray(value.tables) &&
+  Array.isArray(value.groups);
+
+app.get("/api/seating/draft", (req, res) => {
+  res.json(readSeating().draft);
+});
+
+app.put("/api/seating/draft", (req, res) => {
+  if (!isValidSeating(req.body)) {
+    return res.status(400).json({ error: "Некорректные данные рассадки" });
+  }
+  const seating = readSeating();
+  seating.draft = req.body;
+  saveSeating(seating);
+  res.json(seating.draft);
+});
+
+app.get("/api/seating/published", (req, res) => {
+  res.json(readSeating().published);
+});
+
+app.put("/api/seating/published", (req, res) => {
+  if (!isValidSeating(req.body)) {
+    return res.status(400).json({ error: "Некорректные данные рассадки" });
+  }
+  const seating = readSeating();
+  seating.published = req.body;
+  saveSeating(seating);
+  res.json(seating.published);
 });
 
 // ====== СТАРТ СЕРВЕРА ======

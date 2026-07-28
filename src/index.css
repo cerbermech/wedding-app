@@ -80,10 +80,7 @@ button {
   .map-info-card,
   .playlist-item,
   .wish-item,
-  .challenge-list li,
-  .capsule-title,
-  .capsule-text,
-  .capsule-subtext {
+  .challenge-list li {
     animation-name: sectionReveal;
     animation-fill-mode: both;
     animation-duration: 0.9s;

@@ -20,8 +20,7 @@
 }
 
 .guest-reminder,
-.guest-section,
-.future-photo-card {
+.guest-section {
   width: min(900px, 100%);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-line);
@@ -39,8 +38,7 @@
 }
 
 .guest-reminder > svg,
-.guest-section-heading svg,
-.future-photo-card > svg {
+.guest-section-heading svg {
   color: var(--color-gold-500);
 }
 
@@ -52,8 +50,7 @@
 }
 
 .guest-reminder p,
-.faq-item p,
-.future-photo-card span {
+.faq-item p {
   margin: 0;
   color: rgba(31, 61, 43, 0.82);
   line-height: 1.65;
@@ -87,8 +84,7 @@
 }
 
 .faq-item h4,
-.contact-card h4,
-.future-photo-card p {
+.contact-card h4 {
   margin: 0 0 var(--space-2);
   color: var(--color-forest-900);
   font-size: 1.02rem;
@@ -136,8 +132,7 @@
   transition: transform 220ms var(--ease-smooth), background 220ms var(--ease-smooth);
 }
 
-.guest-action:hover,
-.future-photo-card:hover {
+.guest-action:hover {
   transform: translateY(-2px);
 }
 
@@ -145,24 +140,8 @@
   background: rgba(244, 241, 234, 0.72);
 }
 
-.future-photo-card {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-4);
-  align-items: center;
-  padding: var(--space-6) var(--space-8);
-  text-align: left;
-  transition: transform 220ms var(--ease-smooth), border-color 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth);
-}
-
-.future-photo-card:hover {
-  border-color: rgba(198, 167, 94, 0.5);
-  box-shadow: var(--shadow-soft);
-}
-
 @media (max-width: 760px) {
-  .guest-reminder,
-  .future-photo-card {
+  .guest-reminder {
     grid-template-columns: 1fr;
   }
 

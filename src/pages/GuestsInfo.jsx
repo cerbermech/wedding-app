@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Camera, CircleHelp, Mail, MessageCircle, Phone, Sparkles, UsersRound } from "lucide-react";
+import { CircleHelp, Mail, MessageCircle, Phone, Sparkles, UsersRound } from "lucide-react";
 import "./../styles/guestsInfo.css";
 
 const faqItems = [
@@ -9,7 +8,7 @@ const faqItems = [
   },
   {
     question: "Что дарить?",
-    answer: "Лучший подарок для нас - ваш вклад в начало нашей семейной истории. Формат подарка оставляем на ваше усмотрение.",
+    answer: "Лучший подарок для нас — ваш вклад в начало нашей семейной истории. Формат подарка оставляем на ваше усмотрение.",
   },
   {
     question: "Где парковаться?",
@@ -28,15 +27,13 @@ const faqItems = [
 const contacts = [
   {
     role: "Организатор",
-    name: "Контакт будет добавлен",
-    phone: "+70000000000",
-    messageUrl: "https://wa.me/70000000000",
+    name: "Юлия",
+    phone: "+79630551832",
+    messageUrl: "https://t.me/+79630551832",
   },
   {
-    role: "Свидетель",
-    name: "Контакт будет добавлен",
-    phone: "+70000000000",
-    messageUrl: "https://wa.me/70000000000",
+    role: "Координатор",
+    name: "",
   },
 ];
 
@@ -74,17 +71,19 @@ export default function GuestsInfo() {
           {contacts.map((contact) => (
             <article className="contact-card" key={contact.role}>
               <p className="contact-role">{contact.role}</p>
-              <h4>{contact.name}</h4>
-              <div className="contact-actions">
-                <a href={`tel:${contact.phone}`} className="guest-action">
-                  <Phone size={16} strokeWidth={1.9} />
-                  <span>Позвонить</span>
-                </a>
-                <a href={contact.messageUrl} target="_blank" rel="noopener noreferrer" className="guest-action guest-action-secondary">
-                  <MessageCircle size={16} strokeWidth={1.9} />
-                  <span>Написать</span>
-                </a>
-              </div>
+              {contact.name && <h4>{contact.name}</h4>}
+              {contact.phone && (
+                <div className="contact-actions">
+                  <a href={`tel:${contact.phone}`} className="guest-action">
+                    <Phone size={16} strokeWidth={1.9} />
+                    <span>Позвонить</span>
+                  </a>
+                  <a href={contact.messageUrl} target="_blank" rel="noopener noreferrer" className="guest-action guest-action-secondary">
+                    <MessageCircle size={16} strokeWidth={1.9} />
+                    <span>Написать</span>
+                  </a>
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -97,14 +96,6 @@ export default function GuestsInfo() {
           <p>Подтвердите участие, сохраните адрес площадки и загляните в программу перед выездом.</p>
         </div>
       </section>
-
-      <Link to="/gallery" className="future-photo-card" aria-label="Открыть фотоальбом">
-        <Camera size={28} strokeWidth={1.7} />
-        <div>
-          <p>Фото после свадьбы</p>
-          <span>После праздника здесь можно будет открыть и посмотреть общие фотографии.</span>
-        </div>
-      </Link>
     </div>
   );
 }
